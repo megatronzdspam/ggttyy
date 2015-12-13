@@ -94,54 +94,54 @@ local function lock_group_member(msg, data)
     end
     local group_member_lock = data[tostring(msg.to.id)]['settings']['lock_member']
 	if group_member_lock == 'yes' then
-	    return 'Group members are already locked'
+	    return 'قفل اعضا از قبل فعال بود'
 	else
 	    data[tostring(msg.to.id)]['settings']['lock_member'] = 'yes'
 	    save_data(_config.moderation.data, data)
 	end
-	return 'Group members has been locked'
+	return 'قفل اعضا کروه فعال شد'
 end
 
 local function unlock_group_member(msg, data)
     if not is_momod(msg) then
-        return "For moderators only!"
+        return "قابل دسترسی فقط برای مدیران!"
     end
     local group_member_lock = data[tostring(msg.to.id)]['settings']['lock_member']
 	if group_member_lock == 'no' then
-	    return 'Group members are not locked'
+	    return 'قفل اعضا از قبل غیر فعال بود'
 	else
 	    data[tostring(msg.to.id)]['settings']['lock_member'] = 'no'
 	    save_data(_config.moderation.data, data)
-	return 'Group members has been unlocked'
+	return 'قفل اعضا گروه غیر فعال شد'
 	end
 end
 
 --lock/unlock group photo. bot automatically keep group photo when locked
 local function lock_group_photo(msg, data)
     if not is_momod(msg) then
-        return "For moderators only!"
+        return "قابل دسترسی فقط برای مدیران!"
     end
     local group_photo_lock = data[tostring(msg.to.id)]['settings']['lock_photo']
 	if group_photo_lock == 'yes' then
-	    return 'Group photo is already locked'
+	    return 'قفل تصویر گروه از قبل فعال بود'
 	else
 	    data[tostring(msg.to.id)]['settings']['set_photo'] = 'waiting'
 	    save_data(_config.moderation.data, data)
 	end
-	return 'Please send me the group photo now'
+	return 'لطفا تصویر گروه را ارسال کنید'
 end
 
 local function unlock_group_photo(msg, data)
     if not is_momod(msg) then
-        return "For moderators only!"
+        return "قابل دسترسی فقط برای مدیران!"
     end
     local group_photo_lock = data[tostring(msg.to.id)]['settings']['lock_photo']
 	if group_photo_lock == 'no' then
-	    return 'Group photo is not locked'
+	    return 'قفل تصویر گروه از قبل غیر فعال بود'
 	else
 	    data[tostring(msg.to.id)]['settings']['lock_photo'] = 'no'
 	    save_data(_config.moderation.data, data)
-	return 'Group photo has been unlocked'
+	return 'قفل تصویر گروه فعال شد'
 	end
 end
 
