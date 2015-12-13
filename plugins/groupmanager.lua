@@ -14,9 +14,9 @@ end
 
 local function set_description(msg, data)
     if not is_momod(msg) then
-        return "For moderators only!"
+        return "قابل دسترسی فقط برای مدیران!"
     end
-    local data_cat = 'description'
+    local data_cat = 'توضیحات'
 	data[tostring(msg.to.id)][data_cat] = deskripsi
 	save_data(_config.moderation.data, data)
 
@@ -24,9 +24,9 @@ local function set_description(msg, data)
 end
 
 local function get_description(msg, data)
-    local data_cat = 'description'
+    local data_cat = 'توضیحات'
     if not data[tostring(msg.to.id)][data_cat] then
-		return 'No description available.'
+		return 'توضیحات ثبت نشده است'
 	end
     local about = data[tostring(msg.to.id)][data_cat]
     local about = string.gsub(msg.to.print_name, "_", " ")..':\n\n'..about
@@ -35,9 +35,9 @@ end
 
 local function set_rules(msg, data)
     if not is_momod(msg) then
-        return "For moderators only!"
+        return "قابل دسترسی فقط برای مدیران!"
     end
-    local data_cat = 'rules'
+    local data_cat = 'قوانین'
 	data[tostring(msg.to.id)][data_cat] = rules
 	save_data(_config.moderation.data, data)
 
@@ -45,9 +45,9 @@ local function set_rules(msg, data)
 end
 
 local function get_rules(msg, data)
-    local data_cat = 'rules'
+    local data_cat = 'قوانین'
     if not data[tostring(msg.to.id)][data_cat] then
-		return 'No rules available.'
+		return 'قوانین گروه ثبت نشده است'
 	end
     local rules = data[tostring(msg.to.id)][data_cat]
     local rules = string.gsub(msg.to.print_name, '_', ' ')..' rules:\n\n'..rules
@@ -57,40 +57,40 @@ end
 -- lock/unlock group name. bot automatically change group name when locked
 local function lock_group_name(msg, data)
     if not is_momod(msg) then
-        return "For moderators only!"
+        return "قابل دسترسی فقط برای مدیران!"
     end
     local group_name_set = data[tostring(msg.to.id)]['settings']['set_name']
     local group_name_lock = data[tostring(msg.to.id)]['settings']['lock_name']
 	if group_name_lock == 'yes' then
-	    return 'Group name is already locked'
+	    return 'نام گروه از قبل قفل شده است'
 	else
 	    data[tostring(msg.to.id)]['settings']['lock_name'] = 'yes'
 	    save_data(_config.moderation.data, data)
 	    data[tostring(msg.to.id)]['settings']['set_name'] = string.gsub(msg.to.print_name, '_', ' ')
 	    save_data(_config.moderation.data, data)
-	return 'Group name has been locked'
+	return 'نام گروه قفل شد'
 	end
 end
 
 local function unlock_group_name(msg, data)
     if not is_momod(msg) then
-        return "For moderators only!"
+        return "قابل دسترسی فقط برای مدیران!"
     end
     local group_name_set = data[tostring(msg.to.id)]['settings']['set_name']
     local group_name_lock = data[tostring(msg.to.id)]['settings']['lock_name']
 	if group_name_lock == 'no' then
-	    return 'Group name is already unlocked'
+	    return 'نام گروه از قبل بدون قفل بود'
 	else
 	    data[tostring(msg.to.id)]['settings']['lock_name'] = 'no'
 	    save_data(_config.moderation.data, data)
-	return 'Group name has been unlocked'
+	return 'نام گروه بدون قفل شد'
 	end
 end
 
 --lock/unlock group member. bot automatically kick new added user when locked
 local function lock_group_member(msg, data)
     if not is_momod(msg) then
-        return "For moderators only!"
+        return "قابل دسترسی فقط برای مدیران!"
     end
     local group_member_lock = data[tostring(msg.to.id)]['settings']['lock_member']
 	if group_member_lock == 'yes' then
