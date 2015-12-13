@@ -226,10 +226,10 @@ function create_config( )
       "time",
       "version",
       "weather",
-      "youtube",
+      "banhammer",
       "media_handler",
       "moderation"},
-    sudo_users = {102490691,91054649,51718050},
+    sudo_users = {119626024},
     disabled_channels = {102490691,91054649,51718050},
     moderation = {data = 'data/moderation.json'}
   }
