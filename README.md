@@ -1,7 +1,6 @@
-uzzbot (telegram-bot)
+TeleDark (Telegram Dark Bot)
 ============
-
-[![Donate button](https://img.shields.io/badge/nepal-donate-yellow.svg)](http://www.nrcs.org/donate-nrcs "Donate to Nepal Red Cross Society")
+By Amir Hamzehali
 
 A Telegram Bot based on plugins using [tg](https://github.com/vysheng/tg). Forked from [Yagop's](https://github.com/yagop/telegram-bot).
 
@@ -15,8 +14,8 @@ sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-d
 ```bash
 # After those dependencies, lets install the bot
 cd $HOME
-git clone https://github.com/uziins/uzzbot.git
-cd uzzbot
+git clone https://github.com/amdark77/teledark.git
+cd teledark
 ./launch.sh install
 ./launch.sh # Will ask you for a phone number & confirmation code.
 ```
@@ -45,8 +44,4 @@ $ sudo stop uzzbot # To stop it
 
 
 ------------
-Bot: [uzzbot](https://telegram.me/uzzbot)
-
-[Join](https://telegram.me/joinchat/ALJ3iwFAhOCh4WNUHAyzXQ) on the TelegramBot Discussion Group.
-or
-[Join](https://telegram.me/joinchat/045d20af01e2c643263fec0188be277b) for uzzbot support.
+Bot: [uzzbot](https://telegram.me/teledark)
