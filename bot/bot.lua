@@ -132,9 +132,9 @@ local function is_plugin_disabled_on_chat(plugin_name, receiver)
     for disabled_plugin,disabled in pairs(disabled_chats[receiver]) do
       if disabled_plugin == plugin_name and disabled then
         if plugins[disabled_plugin].hidden then
-            print('Plugin '..disabled_plugin..' is disabled on this chat')
+          print('پلاگین '..disabled_plugin..' در این گروه غیر فعال شد.')
         else
-            local warning = 'Plugin '..disabled_plugin..' is disabled on this chat'
+            local warning = 'پلاگین '..disabled_plugin..'  در این گروه غیر فعال شد.'
             print(warning)
             send_msg(receiver, warning, ok_cb, false)
         end
@@ -226,11 +226,11 @@ function create_config( )
       "time",
       "version",
       "weather",
-      "banhammer",
+      "youtube",
       "media_handler",
       "moderation"},
     sudo_users = {119626024},
-    disabled_channels = {102490691,91054649,51718050},
+    disabled_channels = {},
     moderation = {data = 'data/moderation.json'}
   }
   serialize_to_file(config, './data/config.lua')
