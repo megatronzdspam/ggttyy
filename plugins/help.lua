@@ -98,7 +98,7 @@ end
 -- !help command
 local function telegram_help()
   local i = 0
-  local text = "Plugins list:\n\n"
+  local text = "لیست امکانات :\n\n"
   -- Plugins names
   for name in pairsByKeys(plugins) do
     if plugins[name].hidden then
@@ -108,9 +108,10 @@ local function telegram_help()
     text = text..i..'. '..name..'\n'
     end
   end
-  text = text..'\n'..'There are '..i..' plugins help available.'
-  text = text..'\n'..'Write "!help [plugin name]" or "!help [plugin number]" for more info.'
-  text = text..'\n'..'Or "!help all" to show all info.'
+  text = text..'\n'..'در مجموع '..i..' پلاگین در دسترس است.'
+  text = text..'\n'..'برای راهنمایی help [PN]! را بنویسید.'
+ text = text..'\n'..'برای راهنمایی کلی help all! را بنویسید.'
+    text = text..'\n'..'PN = نام پلاگین '
   return text
 end
  
@@ -159,10 +160,10 @@ end
 return {
   description = "Help plugin. Get info from other plugins.  ",
   usage = {
-    "!help: Show list of plugins.",
-    "!help all: Show all commands for every plugin.",
-    "!help [plugin name]: Commands for that plugin.",
-    "!help [number]: Commands for that plugin. Type !help to get the plugin number."
+    "!help: نمایش راهنما پلاگین ها",
+    "!help all: نمایش راهنما کل پلاگین ها",
+    "!help [plugin name]: نمایش راهنما پلاگین خاص",
+    "!help [number]: نمایش راهنما پلاکین خاص",
   },
   patterns = {
     "^!help$",
