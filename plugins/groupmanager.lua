@@ -20,7 +20,7 @@ local function set_description(msg, data)
 	data[tostring(msg.to.id)][data_cat] = deskripsi
 	save_data(_config.moderation.data, data)
 
-	return 'توضیحات گروه به شرح زیر است :\n'..deskripsi
+	return 'توضیحات گروه به شرح زیر تغییر کرد :\n\n'..deskripsi
 end
 
 local function get_description(msg, data)
@@ -41,7 +41,7 @@ local function set_rules(msg, data)
 	data[tostring(msg.to.id)][data_cat] = rules
 	save_data(_config.moderation.data, data)
 
-	return 'Set group rules to:\n'..rules
+return 'قوانین گروه به شرح زیر تغییر کرد :\n\n'..rules
 end
 
 local function get_rules(msg, data)
@@ -53,7 +53,7 @@ local function get_rules(msg, data)
       local rules = string.gsub(msg.to.print_name, '_', ' ')..' قوانین:\n\n'..rules
     return rules
 end
-
+ 
 -- lock/unlock group name. bot automatically change group name when locked
 local function lock_group_name(msg, data)
     if not is_momod(msg) then
@@ -61,10 +61,10 @@ local function lock_group_name(msg, data)
     end
     local group_name_set = data[tostring(msg.to.id)]['settings']['set_name']
     local group_name_lock = data[tostring(msg.to.id)]['settings']['lock_name']
-	if group_name_lock == 'فعال' then
+	if group_name_lock == 'yes' then
 	    return 'نام گروه از قبل قفل شده است'
 	else
-	    data[tostring(msg.to.id)]['settings']['lock_name'] = 'فعال'
+	    data[tostring(msg.to.id)]['settings']['lock_name'] = 'yes'
 	    save_data(_config.moderation.data, data)
 	    data[tostring(msg.to.id)]['settings']['set_name'] = string.gsub(msg.to.print_name, '_', ' ')
 	    save_data(_config.moderation.data, data)
@@ -78,25 +78,25 @@ local function unlock_group_name(msg, data)
     end
     local group_name_set = data[tostring(msg.to.id)]['settings']['set_name']
     local group_name_lock = data[tostring(msg.to.id)]['settings']['lock_name']
-	if group_name_lock == 'غیر فعال' then
+	if group_name_lock == 'no' then
 	    return 'نام گروه از قبل بدون قفل بود'
 	else
-	    data[tostring(msg.to.id)]['settings']['lock_name'] = 'غیر فعال'
+	    data[tostring(msg.to.id)]['settings']['lock_name'] = 'no'
 	    save_data(_config.moderation.data, data)
 	return 'نام گروه بدون قفل شد'
 	end
 end
-
+ 
 --lock/unlock group member. bot automatically kick new added user when locked
 local function lock_group_member(msg, data)
     if not is_momod(msg) then
         return "قابل دسترسی فقط برای مدیران!"
     end
     local group_member_lock = data[tostring(msg.to.id)]['settings']['lock_member']
-	if group_member_lock == 'فعال' then
+	if group_member_lock == 'yes' then
 	    return 'قفل اعضا از قبل فعال بود'
 	else
-	    data[tostring(msg.to.id)]['settings']['lock_member'] = 'فعال'
+	    data[tostring(msg.to.id)]['settings']['lock_member'] = 'yes'
 	    save_data(_config.moderation.data, data)
 	end
 	return 'قفل اعضا گروه فعال شد'
@@ -107,10 +107,10 @@ local function unlock_group_member(msg, data)
         return "قابل دسترسی فقط برای مدیران!"
     end
     local group_member_lock = data[tostring(msg.to.id)]['settings']['lock_member']
-	if group_member_lock == 'غیر فعال' then
+	if group_member_lock == 'no' then
 	    return 'قفل اعضا از قبل غیر فعال بود'
 	else
-	    data[tostring(msg.to.id)]['settings']['lock_member'] = 'غیر فعال'
+	    data[tostring(msg.to.id)]['settings']['lock_member'] = 'no'
 	    save_data(_config.moderation.data, data)
 	return 'قفل اعضا گروه غیر فعال شد'
 	end
@@ -122,7 +122,7 @@ local function lock_group_photo(msg, data)
         return "قابل دسترسی فقط برای مدیران!"
     end
     local group_photo_lock = data[tostring(msg.to.id)]['settings']['lock_photo']
-	if group_photo_lock == 'فعال' then
+	if group_photo_lock == 'yes' then
 	    return 'قفل تصویر گروه از قبل فعال بود'
 	else
 	    data[tostring(msg.to.id)]['settings']['set_photo'] = 'waiting'
@@ -136,10 +136,10 @@ local function unlock_group_photo(msg, data)
         return "قابل دسترسی فقط برای مدیران!"
     end
     local group_photo_lock = data[tostring(msg.to.id)]['settings']['lock_photo']
-	if group_photo_lock == 'غیر فعال' then
+	if group_photo_lock == 'no' then
 	    return 'قفل تصویر گروه از قبل غیر فعال بود'
 	else
-	    data[tostring(msg.to.id)]['settings']['lock_photo'] = 'غیر فعال'
+	    data[tostring(msg.to.id)]['settings']['lock_photo'] = 'no'
 	    save_data(_config.moderation.data, data)
 	return 'قفل تصویر گروه فعال شد'
 	end
@@ -156,9 +156,9 @@ local function set_group_photo(msg, success, result)
     chat_set_photo (receiver, file, ok_cb, false)
     data[tostring(msg.to.id)]['settings']['set_photo'] = file
     save_data(_config.moderation.data, data)
-    data[tostring(msg.to.id)]['settings']['lock_photo'] = 'فعال'
+    data[tostring(msg.to.id)]['settings']['lock_photo'] = 'yes'
     save_data(_config.moderation.data, data)
-    send_large_msg(receiver, 'Photo saved!', ok_cb, false)
+    send_large_msg(receiver, 'تصویر ذخیره شد!', ok_cb, false)
   else
     print('Error downloading: '..msg.id)
     send_large_msg(receiver, 'Failed, please try again!', ok_cb, false)
@@ -170,7 +170,7 @@ local function show_group_settings(msg, data)
         return "قابل دسترسی فقط برای مدیران!"
     end
     local settings = data[tostring(msg.to.id)]['settings']
-       local text = "تنظیمات گروه :\nقفل نام گروه : "..settings.lock_name.."\nقفل تصویر گروه : "..settings.lock_photo.."\nقفل اعضا گروه : "..settings.lock_member
+    local text = "تنظیمات گروه :\n\nقفل نام گروه : "..settings.lock_name.."\nقفل تصویر گروه : "..settings.lock_photo.."\nقفل اعضا گروه : "..settings.lock_member
     return text
 end
 
@@ -206,6 +206,34 @@ function run(msg, matches)
 		if matches[1] == 'rules' then
 		    return get_rules(msg, data)
 		end
+		    if matches[1] == 'newlink' then
+      if not is_momod(msg) then
+        return "For moderators only!"
+      end
+      local function callback (extra , success, result)
+        local receiver = 'chat#'..msg.to.id
+        if success == 0 then
+           return send_large_msg(receiver, '*Error: Invite link failed* \nReason: Not creator.')
+        end
+        send_large_msg(receiver, "Created a new link")
+        data[tostring(msg.to.id)]['settings']['set_link'] = result
+        save_data(_config.moderation.data, data)
+      end
+      local receiver = 'chat#'..msg.to.id
+      savelog(msg.to.id, name_log.." ["..msg.from.id.."] revoked group link ")
+      return export_chat_link(receiver, callback, true)
+    end
+    if matches[1] == 'link' then
+      if not is_momod(msg) then
+        return "For moderators only!"
+      end
+      local group_link = data[tostring(msg.to.id)]['settings']['set_link']
+      if not group_link then 
+        return "Create a link using /newlink first !"
+      end
+       savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested group link ["..group_link.."]")
+      return "Group link:\n"..group_link
+    end
 		if matches[1] == 'group' and matches[2] == 'lock' then --group lock *
 		    if matches[3] == 'name' then
 		        return lock_group_name(msg, data)
@@ -266,9 +294,9 @@ function run(msg, matches)
 		    local group_member_lock = settings.lock_member
 		    local user = 'user#id'..msg.action.user.id
 		    local chat = 'chat#id'..msg.to.id
-		    if group_member_lock == 'فعال' then
+		    if group_member_lock == 'yes' then
 		        chat_del_user(chat, user, ok_cb, true)
-		    elseif group_member_lock == 'غیر فعال' then
+		    elseif group_member_lock == 'no' then
                 return nil
             end
 		end
@@ -277,9 +305,9 @@ function run(msg, matches)
 		        return "Are you trying to troll me?"
 		    end
 		    local group_photo_lock = settings.lock_photo
-		    if group_photo_lock == 'فعال' then
+		    if group_photo_lock == 'yes' then
 		        chat_set_photo (receiver, settings.set_photo, ok_cb, false)
-		    elseif group_photo_lock == 'غیر فعال' then
+		    elseif group_photo_lock == 'no' then
                 return nil
             end
 		end
@@ -288,16 +316,16 @@ function run(msg, matches)
 		        return "Are you trying to troll me?"
 		    end
 		    local group_photo_lock = settings.lock_photo
-		    if group_photo_lock == 'فعال' then
+		    if group_photo_lock == 'yes' then
 		        chat_set_photo (receiver, settings.set_photo, ok_cb, false)
-		    elseif group_photo_lock == 'غیر فعال' then
+		    elseif group_photo_lock == 'no' then
 		    	return nil
 		    end
 		 end
     end
 end
-
-
+ 
+ 
 return {
   description = "پلاگین مدیریت گروه", 
   usage = {
@@ -314,16 +342,18 @@ return {
     "!group settings : مشاهده تنظیمات"
     },
   patterns = {
-    "^!(creategroup) (.*)$",
-    "^!(setabout) (.*)$",
-    "^!(about)$",
-    "^!(setrules) (.*)$",
-    "^!(rules)$",
-    "^!(setname) (.*)$",
-    "^!(setphoto)$",
-    "^!(group) (lock) (.*)$",
-    "^!(group) (unlock) (.*)$",
-    "^!(group) (settings)$",
+    "^[!/](creategroup) (.*)$",
+    "^[!/](setabout) (.*)$",
+    "^[!/](about)$",
+    "^[!/](setrules) (.*)$",
+    "^[!/](rules)$",
+    "^[!/](newlink)$",
+    "^[!/](link)$",
+    "^[!/](setname) (.*)$",
+    "^[!/](setphoto)$",
+    "^[!/](group) (lock) (.*)$",
+    "^[!/](group) (unlock) (.*)$",
+    "^[!/](group) (settings)$",
     "^!!tgservice (.+)$",
     "%[(photo)%]",
   }, 
